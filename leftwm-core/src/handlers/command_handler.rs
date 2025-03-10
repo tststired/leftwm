@@ -6,6 +6,7 @@ use leftwm_layouts::geometry::{Direction as FocusDirection, Rect};
 // Make public to the rest of the crate without exposing other internal
 // details of the scratchpad handling code
 pub use scratchpad_handler::{Direction, ReleaseScratchPadOption};
+mod spawn_handler;
 
 use super::*;
 use crate::command::FocusDeltaBehavior;
@@ -61,6 +62,9 @@ fn process_internal<H: Handle, C: Config, SERVER: DisplayServer<H>>(
         Command::ReleaseScratchPad { window, tag } => {
             scratchpad_handler::release_scratchpad(window.clone(), *tag, manager)
         }
+        Command::SpawnWindow { program, args } => {
+            spawn_handler::spawn_window(manager, program, args)
+        }
 
         Command::NextScratchPadWindow { scratchpad } => {
             scratchpad_handler::cycle_scratchpad_window(manager, scratchpad, Direction::Forward)
@@ -90,7 +94,6 @@ fn process_internal<H: Handle, C: Config, SERVER: DisplayServer<H>>(
 
         Command::GoToTag { tag, swap } => goto_tag(state, *tag, *swap),
         Command::ReturnToLastTag => return_to_last_tag(state),
-
         Command::CloseWindow => close_window(state),
         Command::SwapScreens => swap_tags(state),
         Command::NextLayout => next_layout(state),

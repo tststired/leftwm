@@ -17,11 +17,13 @@ use leftwm_core::{
     layouts::LayoutMode,
     models::{
         FocusBehaviour, FocusOnActivationBehaviour, Gutter, Handle, Margins, Window, WindowState,
-        WindowType,
+        WindowType
     },
     state::State,
     DisplayAction, DisplayServer, Manager, ReturnPipe,
 };
+
+use leftwm_core::models::Custom_cmds;
 
 use leftwm_layouts::Layout;
 use regex::Regex;
@@ -212,6 +214,7 @@ pub struct Config {
     pub layout_mode: LayoutMode,
     pub insert_behavior: InsertBehavior,
     pub scratchpad: Option<Vec<ScratchPad>>,
+    pub cmds: Option<Vec<Custom_cmds>>,
     pub window_rules: Option<Vec<WindowHook>>,
     // If you are on tag "1" and you goto tag "1" this takes you to the previous tag
     pub disable_current_tag_swap: bool,
@@ -442,6 +445,13 @@ impl leftwm_core::Config for Config {
     fn create_list_of_scratchpads(&self) -> Vec<ScratchPad> {
         if let Some(scratchpads) = &self.scratchpad {
             return scratchpads.clone();
+        }
+        vec![]
+    }
+  
+    fn create_list_of_cmds(&self) -> Vec<Custom_cmds> {
+        if let Some(cmds) = &self.cmds {
+            return cmds.clone();
         }
         vec![]
     }

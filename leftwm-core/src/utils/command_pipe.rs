@@ -164,6 +164,8 @@ fn parse_command<H: Handle>(s: &str) -> Result<Command<H>, Box<dyn std::error::E
         "RotateTag" => Ok(Command::RotateTag),
         "SetLayout" => build_set_layout(rest),
         "SetMarginMultiplier" => build_set_margin_multiplier(rest),
+        // ccustom commands
+        "SpawnWindow" => build_spawn_window(rest),
         // Scratchpad
         "ToggleScratchPad" => build_toggle_scratchpad(rest),
         "AttachScratchPad" => build_attach_scratchpad(rest),
@@ -224,6 +226,17 @@ fn build_release_scratchpad<H: Handle>(raw: &str) -> Command<H> {
             tag: None,
         }
     }
+}
+
+fn build_spawn_window<H: Handle>(raw: &str) -> Result<Command<H>, Box<dyn std::error::Error>> {
+    let mut parts = raw.split(' ');
+    let program = parts.next().ok_or("missing argument program")?.to_string();
+    let args = parts.map(|s| s.to_string()).collect();
+    Ok(Command::SpawnWindow {
+        program,
+        args,
+    })
+
 }
 
 fn build_toggle_scratchpad<H: Handle>(raw: &str) -> Result<Command<H>, Box<dyn std::error::Error>> {

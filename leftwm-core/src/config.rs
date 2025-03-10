@@ -5,6 +5,7 @@ mod workspace_config;
 use crate::display_servers::DisplayServer;
 use crate::layouts::LayoutMode;
 pub use crate::models::ScratchPad;
+pub use crate::models::Custom_cmds;
 pub use crate::models::{FocusBehaviour, Gutter, Margins, Size};
 use crate::models::{FocusOnActivationBehaviour, Handle, Manager, Window, WindowType};
 use crate::state::State;
@@ -25,6 +26,8 @@ pub trait Config {
     fn mousekey(&self) -> Vec<String>;
 
     fn create_list_of_scratchpads(&self) -> Vec<ScratchPad>;
+
+    fn create_list_of_cmds(&self) -> Vec<Custom_cmds>;
 
     fn layouts(&self) -> Vec<String>;
 
@@ -135,6 +138,12 @@ pub(crate) mod tests {
         fn create_list_of_scratchpads(&self) -> Vec<ScratchPad> {
             vec![]
         }
+
+        fn create_list_of_cmds(&self) -> Vec<Custom_cmds> {
+            vec![]
+        }
+
+
         fn layouts(&self) -> Vec<String> {
             self.layouts.clone()
         }

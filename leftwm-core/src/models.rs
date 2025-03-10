@@ -16,6 +16,7 @@ mod window_type;
 mod workspace;
 mod xyhw;
 mod xyhw_change;
+mod custom_commands;
 
 pub mod dto;
 
@@ -29,6 +30,7 @@ pub use manager::Manager;
 pub use margins::Margins;
 pub use mode::Mode;
 pub use scratchpad::{ScratchPad, ScratchPadName};
+pub use custom_commands::Custom_cmds;
 pub use screen::{BBox, Screen};
 pub use size::Size;
 pub use window::Handle;

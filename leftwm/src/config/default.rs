@@ -1,6 +1,6 @@
 use leftwm_core::{
     config::WindowHidingStrategy,
-    models::{FocusOnActivationBehaviour, ScratchPad, Size},
+    models::{FocusOnActivationBehaviour, ScratchPad, Custom_cmds, Size},
 };
 
 use crate::Backend;
@@ -216,6 +216,12 @@ impl Default for Config {
             width: Some(Size::Pixel(200)),
         };
 
+        let cmds = Custom_cmds {
+            name: "Alacritty".into(),
+            args: None,
+            value: "alacritty".to_string(),
+        };
+
         let layouts = leftwm_layouts::layouts::Layouts::default();
 
         Self {
@@ -229,6 +235,7 @@ impl Default for Config {
             layout_mode: LayoutMode::Tag,
             // TODO: add sane default for scratchpad config.
             // Currently default values are set in sane_dimension fn.
+            cmds: Some(vec![cmds]),
             scratchpad: Some(vec![scratchpad]),
             window_rules: Some(vec![]),
             disable_current_tag_swap: false,

@@ -28,6 +28,7 @@ pub enum BaseCommand {
     PrevScratchPadWindow,
     /// Args: `ScratchpadName`
     ToggleScratchPad,
+    SpawnWindow,
     ToggleFullScreen,
     ToggleMaximized,
     ToggleSticky,

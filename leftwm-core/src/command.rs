@@ -7,6 +7,11 @@ use serde::{Deserialize, Serialize};
 /// It will be handled in the main event loop.
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
 pub enum Command<H: Handle> {
+    SpawnWindow {
+        #[serde(bound = "")]
+        program: String,
+        args: Vec<String>,
+    },
     CloseWindow,
     SwapScreens,
     SoftReload,

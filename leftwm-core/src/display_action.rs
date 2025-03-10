@@ -14,7 +14,7 @@ pub enum DisplayAction<H: Handle> {
     /// Nicely ask a window if it would please close at its convenience.
     #[serde(bound = "")]
     KillWindow(WindowHandle<H>),
-
+    // pass in string to spawn window
     /// Get triggered after a new window is discovered and WE are
     /// managing it.
     #[serde(bound = "")]

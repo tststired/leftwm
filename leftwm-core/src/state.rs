@@ -1,7 +1,7 @@
 //! Save and restore manager state.
 
 use crate::child_process::ChildID;
-use crate::config::{Config, InsertBehavior, ScratchPad};
+use crate::config::{Config, Custom_cmds, InsertBehavior, ScratchPad};
 use crate::layouts::LayoutManager;
 use crate::models::{
     FocusManager, Handle, Mode, ScratchPadName, Screen, Tags, Window, WindowHandle, WindowState,
@@ -38,6 +38,7 @@ pub struct State<H: Handle> {
     pub reposition_cursor_on_resize: bool,
     pub insert_behavior: InsertBehavior,
     pub single_window_border: bool,
+    pub custom_commands: Vec<Custom_cmds>,
 }
 
 impl<H: Handle> State<H> {
@@ -60,6 +61,7 @@ impl<H: Handle> State<H> {
             tags,
             scratchpads: config.create_list_of_scratchpads(),
             layout_definitions: config.layout_definitions(),
+            custom_commands: config.create_list_of_cmds(),
             mousekey: config.mousekey(),
             default_width: config.default_width(),
             default_height: config.default_height(),
